@@ -1,6 +1,5 @@
 # Create staff.txt
 # Create customer.txt
-
 import random
 import datetime
 import os
@@ -9,6 +8,7 @@ import os
 # login and check if login details correct
 def check_login_details():
     with open("staff.txt") as staff_file:
+
         text = staff_file.read().strip()
         while True:
             try:
@@ -32,20 +32,13 @@ def check_login_details():
 
 # input account number to fetch account details
 def input_account_number():
-    with open("customer.txt") as customer_file:
-        text = customer_file.read().strip().split()
-        while True:
-            try:
-                account_number_request = input('Please enter your account number: ')
-                if account_number_request == "":
-                    continue
-                if account_number_request in text:
-                    print(f"Your account details are: {text}")
-                    break
-                else:
-                    raise Exception("Incorrect account number! Try again")
-            except Exception as incorrect:
-                print(incorrect)
+    account_number_request = input('Please enter your account number: ')
+    with open('customer.txt', 'r') as file:
+        for line in file:
+            if account_number_request in line:
+                matchedLine = line
+                print(matchedLine)
+
 
 
 # generate 10 digit account number
@@ -63,6 +56,9 @@ def input_account_details():
     gen_account_number()
     account_details = [account_name, opening_balance, account_type, account_email, gen_account_number()]
     with open("customer.txt", "a") as customer_file:
+        customer_file.write("\n" + "Account_Name:" + account_name + " " + "Opening_Balance:" + opening_balance + " " +
+                            "Account_Type: " + account_type + " " + "Account_Email:" + account_email +
+                            "Account_Number:" + str(gen_account_number()))
         customer_file.write(
             f"\nAccount_Name:{account_name} Opening_Balance:{opening_balance} Account_Type:{account_type} "
             f"Account_Email:{account_email} Account_Number:{str(gen_account_number())}")
