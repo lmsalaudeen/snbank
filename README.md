@@ -1,2 +1,2 @@
 # snbank
-Banking System with File system
+A basic banking system that stores data using the Python File System. 
